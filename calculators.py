@@ -16,3 +16,6 @@ def kupiec_limits(n, p):
     while kupiec(n, x, p) < chi2: x += 1        
 
     return x1, x
+
+def soma (x,y):
+    return x+y
