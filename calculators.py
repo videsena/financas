@@ -1,12 +1,12 @@
 import math, scipy
 
 
-def kupiec(n, x, p):
+def kupiec(n: int, x: int, p: float) -> float:
     dividend = (((1-p) ** (n-x)) * (p ** x))
     divisor = ((1-(x/n)) ** (n-x)) * ((x/n) ** x)
     return -2 * math.log(dividend/divisor)
     
-def kupiec_limits(n, p):
+def kupiec_limits(n: int, p: int) -> tuple:
     chi2 = float(scipy.stats.distributions.chi2.ppf((1-p), df=1))
     
     x = 0
@@ -17,5 +17,8 @@ def kupiec_limits(n, p):
 
     return x1, x
 
-def soma (x,y):
-    return x+y
+def soma(x: float, y: float) -> float:
+    return x + y
+
+def percentual(n: int, k: int) -> float:
+    return 1 / (n - (k - 1))
