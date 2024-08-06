@@ -11,7 +11,7 @@ def tabela_sac(periodos: int, taxa: float, principal: float) -> list:
         pgto = amort + juros
         saldo_devedor = saldo_devedor - amort
 
-        tabela.append({'periodo': x, 'saldo_devedor': round(saldo_devedor, 2), 'amortizacao': round(amort, 2), 'juros': round(juros, 2), 'parcela': round(pgto, 2)})
+        tabela.append({'periodo': x, 'saldo_devedor': saldo_devedor, 'amortizacao': amort, 'juros': juros, 'parcela': pgto})
 
     return tabela
 
@@ -27,6 +27,6 @@ def tabela_price(periodos: int, taxa: float, principal: float) -> list:
         amort = pgto - juros
         saldo_devedor = saldo_devedor - amort
 
-        tabela.append({'periodo': x, 'saldo_devedor': round(saldo_devedor, 2), 'amortizacao': round(amort, 2), 'juros': round(juros, 2), 'parcela': round(pgto, 2)})
+        tabela.append({'periodo': x, 'saldo_devedor':saldo_devedor, 'amortizacao': amort, 'juros': juros, 'parcela': pgto})
 
     return tabela
