@@ -1,32 +1,32 @@
 import calculators
 
-def tabela_sac(n: int, i: float, vp: float) -> list:
+def tabela_sac(periodos: int, taxa: float, principal: float) -> list:
     tabela = []
-    tabela.append({'n': 0, 'sd': vp, 'amortizacao': 0.0, 'juros': 0.0, 'parcela': 0.0})
+    tabela.append({'n': 0, 'sd': principal, 'amortizacao': 0.0, 'juros': 0.0, 'parcela': 0.0})
 
-    sd = vp
-    for x in range(1,n+1):
-        amort = calculators.percentual(n, x) * sd
-        juros = sd * i
+    saldo_devedor = principal
+    for x in range(1,periodos+1):
+        amort = calculators.percentual(periodos, x) * saldo_devedor
+        juros = saldo_devedor * taxa
         pgto = amort + juros
-        sd = sd - amort
+        saldo_devedor = saldo_devedor - amort
 
-        tabela.append({'n': x, 'sd': round(sd, 2), 'amortizacao': round(amort, 2), 'juros': round(juros, 2), 'parcela': round(pgto, 2)})
+        tabela.append({'n': x, 'sd': round(saldo_devedor, 2), 'amortizacao': round(amort, 2), 'juros': round(juros, 2), 'parcela': round(pgto, 2)})
 
     return tabela
 
-def tabela_price(n: int, i: float, vp: float) -> list:
+def tabela_price(periodos: int, taxa: float, principal: float) -> list:
     tabela = []
-    tabela.append({'n': 0, 'sd': vp, 'amortizacao': 0.0, 'juros': 0.0, 'parcela': 0.0})
+    tabela.append({'n': 0, 'sd': principal, 'amortizacao': 0.0, 'juros': 0.0, 'parcela': 0.0})
 
-    pgto = (vp * i) / (1 - (1 + i) ** (-n))
+    pgto = (principal * taxa) / (1 - (1 + taxa) ** (-periodos))
 
-    sd = vp
-    for x in range(1,n+1):
-        juros = sd * i
+    saldo_devedor = principal
+    for x in range(1,periodos+1):
+        juros = saldo_devedor * taxa
         amort = pgto - juros
-        sd = sd - amort
+        saldo_devedor = saldo_devedor - amort
 
-        tabela.append({'n': x, 'sd': round(sd, 2), 'amortizacao': round(amort, 2), 'juros': round(juros, 2), 'parcela': round(pgto, 2)})
+        tabela.append({'n': x, 'sd': round(saldo_devedor, 2), 'amortizacao': round(amort, 2), 'juros': round(juros, 2), 'parcela': round(pgto, 2)})
 
     return tabela
