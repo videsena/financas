@@ -12,6 +12,9 @@ def n(pv, fv, i):
 def i(pv, fv, n):
     return (pv/fv) ** (1/n) - 1
 
+def pmt(pv, i, n):
+    return  (pv * i) / (1 - (1 + i) ** (-n))
+
 class periods:
     def year_month(i):
         return (1 + i) ** (1/12) - 1
