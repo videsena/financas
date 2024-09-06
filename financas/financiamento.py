@@ -1,4 +1,5 @@
-import calculos
+from . import calculos
+from . import tools
 
 def tabela_sac(periodos: int, taxa: float, principal: float, extraordinarias: dict = {}) -> list:
     tabela = []
