@@ -35,16 +35,3 @@ class periods:
     
     def day_month(i):
         return (1 + i) ** (21) - 1
-    
-
-def converte_taxas_paralelo(taxas):
-    func = periods.year_month
-    return tools.paralelo(func, taxas)
-
-def converte_taxas_serie(taxas):
-    lista_taxas = []
-    for i, taxa in enumerate(taxas):
-        lista_taxas.append(periods.year_month(taxa[0]))
-        print(i, end='\r')
-
-    return lista_taxas
