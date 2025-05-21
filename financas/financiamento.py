@@ -39,3 +39,24 @@ def tabela_price(periodos: int, taxa: float, principal: float, extraordinarias: 
         tabela.append({'periodo': x, 'saldo_devedor': saldo_devedor, 'juros': juros, 'amortizacao_base': amort_base, 'amortizacao_extra': amort_extra,  'parcela': pgto + amort_extra})
 
     return tabela
+
+def tabela_mista(periodos: int, taxa: float, principal: float, extraordinarias: dict = {}) -> list:
+    lista_tabela_sac = tabela_sac(periodos, taxa, principal, extraordinarias)
+    lista_tabela_price = tabela_price(periodos, taxa, principal, extraordinarias)
+
+    tabela = []
+    tabela.append({'periodo': 0, 'saldo_devedor': principal, 'juros': 0.0, 'amortizacao_base': 0.0, 'amortizacao_extra': 0.0, 'parcela': 0.0})
+
+    saldo_devedor = principal
+    for s, p in zip(lista_tabela_sac, lista_tabela_price):
+        periodo = s['periodo']
+        if periodo != 0:
+            parcela = (s['parcela'] + p['parcela']) / 2
+            juros = saldo_devedor * taxa
+            amort_base = parcela - juros
+            amort_extra = s['amortizacao_extra']
+            saldo_devedor = saldo_devedor - amort_base - amort_extra
+
+            tabela.append({'periodo': periodo, 'saldo_devedor': saldo_devedor, 'juros': juros, 'amortizacao_base': amort_base, 'amortizacao_extra': amort_extra,  'parcela': parcela})
+
+    return tabela
