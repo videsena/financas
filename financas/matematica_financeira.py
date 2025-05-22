@@ -38,6 +38,11 @@ class periods:
     
 def vpl(fluxos_caixa: list, i: float):
     investimento = fluxos_caixa[0]
+    fluxos_vl_presente = vpl_fluxos(fluxos_caixa, i)
+
+    return investimento + sum(fluxo for fluxo in fluxos_vl_presente)
+
+def vpl_fluxos(fluxos_caixa: list, i: float):
     fluxos_vl_presente = []
 
     for n, fluxo in enumerate(fluxos_caixa):
@@ -45,4 +50,4 @@ def vpl(fluxos_caixa: list, i: float):
             vl = fluxo / (1 + i) ** (n)
             fluxos_vl_presente.append(vl)
 
-    return investimento + sum(fluxo for fluxo in fluxos_vl_presente)
+    return vpl_fluxos
