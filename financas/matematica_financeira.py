@@ -35,3 +35,14 @@ class periods:
     
     def day_month(i):
         return (1 + i) ** (21) - 1
+    
+def vpl(fluxos_caixa: list, i: float):
+    investimento = fluxos_caixa[0]
+    fluxos_vl_presente = []
+
+    for n, fluxo in enumerate(fluxos_caixa):
+        if n != 0:
+            vl = fluxo / (1 + i) ** (n)
+            fluxos_vl_presente.append(vl)
+
+    return investimento + sum(fluxo for fluxo in fluxos_vl_presente)
