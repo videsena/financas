@@ -1,7 +1,7 @@
 import pandas as pd
 import multiprocessing
 
-def copy_table(tabela: list[dict] | pd.DataFrame):
+def copy_table(tabela):
     if isinstance(tabela, list):
         pd.DataFrame(tabela).to_clipboard(excel=True, sep=';', index=False, decimal=',')
 
