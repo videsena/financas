@@ -1,4 +1,4 @@
-import statistics
+import statistics, itertools
 
 def estatistica_descritiva(dados):
     tabela = []
@@ -22,3 +22,9 @@ def estatistica_descritiva(dados):
         tabela.append(aux)
 
     return tabela
+
+def correlacao(dados):
+    series = list(dados[0].keys())
+    tabela = []
+    pares = list(itertools.combinations(series, 2))
+    return pares
