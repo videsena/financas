@@ -51,3 +51,12 @@ def vpl_fluxos(fluxos_caixa: list, i: float):
             fluxos_vl_presente.append(vl)
 
     return vpl_fluxos
+
+def taxa_real(taxa_nominal: float, inflacao: float):
+    return (1 + taxa_nominal) / (1 + inflacao) - 1
+
+def taxa_nominal(taxa_real: float, inflacao: float):
+    return (1 + taxa_real) * (1 + inflacao) - 1
+
+def taxa_inflacao(taxa_nominal: float, taxa_real: float):
+    return (1 + taxa_nominal) / (1 + taxa_real) - 1
