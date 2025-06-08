@@ -60,8 +60,3 @@ def taxa_nominal(taxa_real: float, inflacao: float):
 
 def taxa_inflacao(taxa_nominal: float, taxa_real: float):
     return (1 + taxa_nominal) / (1 + taxa_real) - 1
-
-def tir(fluxos_caixa: list):
-    f0 = fluxos_caixa[0]
-    vpl = vpl(fluxos_caixa, 0)
-    return True
