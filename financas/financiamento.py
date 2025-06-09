@@ -60,3 +60,19 @@ def tabela_mista(periodos: int, taxa: float, principal: float, extraordinarias: 
             tabela.append({'periodo': periodo, 'saldo_devedor': saldo_devedor, 'juros': juros, 'amortizacao_base': amort_base, 'amortizacao_extra': amort_extra,  'parcela': parcela})
 
     return tabela
+
+def tabela_americana(periodos: int, taxa: float, principal: float, extraordinarias: dict = {}) -> list:
+    tabela = []
+    tabela.append({'periodo': 0, 'saldo_devedor': principal, 'juros': 0.0, 'amortizacao_base': 0.0, 'amortizacao_extra': 0.0, 'parcela': 0.0})
+
+    saldo_devedor = principal
+    for x in range(1, periodos):
+        if saldo_devedor <= 0.0:
+            continue
+
+        juros = saldo_devedor * taxa
+        tabela.append({'periodo': x, 'saldo_devedor': saldo_devedor, 'juros': juros, 'amortizacao_base': 0.0, 'amortizacao_extra': 0.0,  'parcela': juros})
+
+    tabela.append({'periodo': x + 1, 'saldo_devedor': saldo_devedor, 'juros': juros, 'amortizacao_base': saldo_devedor, 'amortizacao_extra': 0.0,  'parcela': juros + saldo_devedor})
+
+    return tabela
