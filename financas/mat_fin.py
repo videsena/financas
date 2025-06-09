@@ -1,6 +1,6 @@
 import math
 from . import tools
-import copy
+import copy, itertools
 
 def fv(pv, n, i):
     return pv * (1 + i) ** (n)
@@ -60,3 +60,23 @@ def taxa_nominal(taxa_real: float, inflacao: float):
 
 def taxa_inflacao(taxa_nominal: float, taxa_real: float):
     return (1 + taxa_nominal) / (1 + taxa_real) - 1
+
+def payback(fluxos_caixa: list):
+    investimento = fluxos_caixa[0]
+    for n, fluxo in enumerate(fluxos_caixa):
+        if n != 0:
+            investimento += fluxo
+            if investimento + fluxos_caixa[n + 1] >= 0:
+                return n + abs(investimento) / fluxos_caixa[n + 1]
+
+    return "Não há payback"
+
+def payback_descontado(fluxos_caixa: list, i: float):
+    investimento = fluxos_caixa[0]
+    fluxos_caixa = vpl_fluxos(fluxos_caixa, i)
+    for n, fluxo in enumerate(fluxos_caixa, start=1):
+        investimento += fluxo
+        if investimento + fluxos_caixa[n + 1] >= 0:
+            return n + abs(investimento) / fluxos_caixa[n + 1]
+
+    return "Não há payback"
