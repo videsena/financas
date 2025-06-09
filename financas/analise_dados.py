@@ -1,4 +1,5 @@
-import statistics, itertools
+import statistics, itertools, numpy
+import scipy.stats
 
 def estatistica_descritiva(dados):
     tabela = []
@@ -23,8 +24,30 @@ def estatistica_descritiva(dados):
 
     return tabela
 
-def correlacao(dados):
+def correlacao(dados: list):
     series = list(dados[0].keys())
+
+    correlacoes = {s: {} for s in series}
+
+    for i in itertools.combinations(series, 2):
+        serie_1 = [dados[i[0]] for dados in dados]
+        serie_2 = [dados[i[1]] for dados in dados]
+        correlacao = numpy.corrcoef(serie_1, serie_2)
+        correlacoes[i[0]][i[1]] = correlacao[0][1]
+
     tabela = []
-    pares = list(itertools.combinations(series, 2))
-    return pares
+    for serie in series:
+        aux = {}
+        aux[''] = serie
+        aux[serie] = 1
+        for c in correlacoes[serie]:
+            aux[c] = correlacoes[serie][c]
+        tabela.append(aux)
+
+    return tabela
+
+def z_score(x, media, desvio_padrao):
+    return (x - media) / desvio_padrao
+
+def area_normal(z_score):
+    return scipy.stats.norm.cdf(z_score)
